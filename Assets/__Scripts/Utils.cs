@@ -34,14 +34,14 @@ public class Utils : MonoBehaviour {
 		// Create an empty Bounds b
 		Bounds b = new Bounds(Vector3.zero, Vector3.zero);
 		// If this GameObject has a Renderer Component...
-		if (go.GetComponent<Renderer>() != null) {
+		if (go.renderer != null) {
 			// Expand b to contain the Renderer's Bounds
-			b = BoundsUnion(b, go.GetComponent<Renderer>().bounds);
+			b = BoundsUnion(b, go.renderer.bounds);
 		}
 		// If this GameObject has a Collider Component...
-		if (go.GetComponent<Collider>() != null) {
+		if (go.collider != null) {
 			// Expand b to contain the Collider's Bounds
-			b = BoundsUnion(b, go.GetComponent<Collider>().bounds);
+			b = BoundsUnion(b, go.collider.bounds);
 		}
 		// Iterate through each child of this gameObject.transform
 		foreach( Transform t in go.transform ) {
@@ -222,8 +222,8 @@ public class Utils : MonoBehaviour {
 	// Returns a list of all Materials in this GameObject or its children
 	static public Material[] GetAllMaterials( GameObject go ) {
 		List<Material> mats = new List<Material>();
-		if (go.GetComponent<Renderer>() != null) {
-			mats.Add(go.GetComponent<Renderer>().material);
+		if (go.renderer != null) {
+			mats.Add(go.renderer.material);
 		}
 		foreach( Transform t in go.transform ) {
 			mats.AddRange( GetAllMaterials( t.gameObject ) );
